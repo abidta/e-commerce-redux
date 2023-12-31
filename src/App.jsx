@@ -2,7 +2,7 @@ import './App.css'
 import BannerComponent from './components/BannerComponent'
 import Chips from './components/Chips'
 import Footer from './components/Footer'
-import NavBar from './components/NavBAr'
+import NavBar from './components/NavBar'
 import ProductList from './components/ProductList'
 
 function App() {
