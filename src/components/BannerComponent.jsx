@@ -13,7 +13,7 @@ function BannerComponent() {
                 game consoles, as well as applications (games), streaming
                 service Xbox Cloud Gaming,
               </p>
-              <h1 className="font-bold text-2xl text-pink-600 mt-4">₹18000</h1>
+              <h1 className="font-bold text-2xl text-pink-600 mt-4">$1000</h1>
               <Button className="bg-pink-600 mt-2">Buy now</Button>
             </div>
             <div className='col-span-3'>
