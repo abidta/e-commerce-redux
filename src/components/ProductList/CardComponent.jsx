@@ -2,11 +2,15 @@ import { Card } from 'flowbite-react'
 import CartButtons from './CartButtons'
 
 function CardComponent({ product }) {
-  console.log('card compon');
+  console.log('card compon')
   return (
     <div className="text-center me-2 mb-2 md:mb-0">
       <Card className="max-w-sm mx-auto grid justify-items-center ">
-        <img src={`${product.image_url}`} className='h-auto aspect-square' alt="" />
+        <img
+          src={`${product.image_url}`}
+          className="h-auto aspect-square"
+          alt=""
+        />
         <div>
           <h5 className="text-sm font-bold tracking-tight text-gray-900 dark:text-white">
             {product.title}
@@ -16,7 +20,7 @@ function CardComponent({ product }) {
           </p>
           <h2 className="text-2xl ">{`$${product.price}`}</h2>
         </div>
-        <CartButtons product={product}/>
+        <CartButtons product={product} />
       </Card>
     </div>
   )

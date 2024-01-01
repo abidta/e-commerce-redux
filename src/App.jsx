@@ -10,11 +10,11 @@ function App() {
     <div className="container mx-auto">
       <NavBar />
       <BannerComponent />
-      <MakeChips/>
-      <ProductList category={'watches'}/>
-      <ProductList category={'shoes'}/>
-      <ProductList category={'bags'}/>
-      <Footer/>
+      <MakeChips />
+      <ProductList category={'watches'} />
+      <ProductList category={'shoes'} />
+      <ProductList category={'bags'} />
+      <Footer />
     </div>
   )
 }

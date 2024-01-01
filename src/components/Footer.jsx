@@ -10,7 +10,7 @@ function Footer() {
           </h1>
           <form
             action="#"
-            method='post'
+            method="post"
             className=" w-full flex-col items-center md:flex-row md:gap-x-3"
           >
             <Label
@@ -20,16 +20,17 @@ function Footer() {
               Sign up for our newsletter
             </Label>
             <TextInput
-            className='mt-2'
+              className="mt-2"
               id="email"
               placeholder="Enter your email"
               required
               type="email"
             />
-            <Button className='mt-1 bg-pink-500' type="submit">Subscribe</Button>
+            <Button className="mt-1 bg-pink-500" type="submit">
+              Subscribe
+            </Button>
           </form>
         </div>
-       
       </div>
     </Banner>
   )

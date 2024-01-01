@@ -8,7 +8,11 @@ function Chips({ chipsData }) {
           chipsData?.category.slice(1)}
       </h1>
       <div className=" ">
-        <img className="sm:h-12 h-5 me-2" src={chipsData?.imageUrl} alt={`${chipsData?.category}`} />
+        <img
+          className="sm:h-12 h-5 me-2"
+          src={chipsData?.imageUrl}
+          alt={`${chipsData?.category}`}
+        />
       </div>
     </div>
   )
