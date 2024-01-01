@@ -10,6 +10,7 @@ function Footer() {
           </h1>
           <form
             action="#"
+            method='post'
             className=" w-full flex-col items-center md:flex-row md:gap-x-3"
           >
             <Label
