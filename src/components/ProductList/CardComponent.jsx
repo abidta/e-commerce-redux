@@ -6,7 +6,7 @@ function CardComponent({ product }) {
   return (
     <div className="text-center me-2 mb-2 md:mb-0">
       <Card className="max-w-sm mx-auto grid justify-items-center ">
-        <img src="/images/kindpng_4997998.png" alt="" />
+        <img src={`${product.image_url}`} className='h-auto aspect-square' alt="" />
         <div>
           <h5 className="text-sm font-bold tracking-tight text-gray-900 dark:text-white">
             {product.title}

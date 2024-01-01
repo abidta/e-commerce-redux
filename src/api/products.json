@@ -1,7 +1,7 @@
 [
     {
         "id": 1,
-        "image_url": "watch_image_url_1.jpg",
+        "image_url": "/images/products/watches1.png",
         "title": "Elegant Chronograph Watch",
         "price": 149.99,
         "description": "A sophisticated and stylish chronograph watch suitable for any occasion.",
@@ -9,7 +9,7 @@
       },
       {
         "id": 2,
-        "image_url": "watch_image_url_2.jpg",
+        "image_url": "/images/products/watches2.png",
         "title": "Sporty Dive Watch",
         "price": 99.99,
         "description": "A durable and water-resistant dive watch for adventurous spirits.",
@@ -17,7 +17,7 @@
       },
       {
         "id": 3,
-        "image_url": "watch_image_url_3.jpg",
+        "image_url": "/images/products/watches3.png",
         "title": "Classic Leather Strap Watch",
         "price": 129.99,
         "description": "A timeless timepiece with a genuine leather strap for a touch of elegance.",
@@ -25,7 +25,7 @@
       },
       {
         "id": 4,
-        "image_url": "watch_image_url_4.jpg",
+        "image_url": "/images/products/watches4.png",
         "title": "Smartwatch",
         "price": 179.99,
         "description": "A versatile smartwatch with advanced fitness tracking features.",
@@ -33,7 +33,7 @@
       },
       {
         "id": 5,
-        "image_url": "bag_image_url_1.jpg",
+        "image_url": "/images/products/bags1.png",
         "title": "Leather Laptop Bag",
         "price": 79.99,
         "description": "A stylish and functional leather laptop bag for professionals on the go.",
@@ -41,7 +41,7 @@
       },
       {
         "id": 6,
-        "image_url": "bag_image_url_2.jpg",
+        "image_url": "/images/products/bags2.png",
         "title": "Canvas Backpack",
         "price": 49.99,
         "description": "A durable canvas backpack with multiple compartments.",
@@ -49,7 +49,7 @@
       },
       {
         "id": 7,
-        "image_url": "bag_image_url_3.jpg",
+        "image_url": "/images/products/bags3.png",
         "title": "Fashionable Tote Bag",
         "price": 39.99,
         "description": "A chic tote bag perfect for shopping or a day out with friends.",
@@ -57,7 +57,7 @@
       },
       {
         "id": 8,
-        "image_url": "bag_image_url_4.jpg",
+        "image_url": "/images/products/bags4.png",
         "title": "Crossbody Messenger Bag",
         "price": 59.99,
         "description": "A versatile and compact crossbody messenger bag for urban adventures.",
@@ -65,7 +65,7 @@
       },
       {
         "id": 9,
-        "image_url": "shoe_image_url_1.jpg",
+        "image_url": "/images/products/shoes1.png",
         "title": "Running Shoes",
         "price": 89.99,
         "description": "Comfortable and breathable running shoes for your daily workouts.",
@@ -73,7 +73,7 @@
       },
       {
         "id": 10,
-        "image_url": "shoe_image_url_2.jpg",
+        "image_url": "/images/products/shoes2.png",
         "title": "Casual Sneakers",
         "price": 69.99,
         "description": "Stylish and casual sneakers for a laid-back and trendy look.",
@@ -81,7 +81,7 @@
       },
       {
         "id": 11,
-        "image_url": "shoe_image_url_3.jpg",
+        "image_url": "/images/products/shoes3.png",
         "title": "Formal Leather Shoes",
         "price": 129.99,
         "description": "Classic and elegant leather shoes suitable for formal occasions.",
@@ -89,7 +89,7 @@
       },
       {
         "id": 12,
-        "image_url": "shoe_image_url_4.jpg",
+        "image_url": "/images/products/shoes4.png",
         "title": "Hiking Boots",
         "price": 109.99,
         "description": "Sturdy and waterproof hiking boots for outdoor adventures.",
