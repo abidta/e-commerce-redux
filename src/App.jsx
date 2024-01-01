@@ -3,11 +3,11 @@ import BannerComponent from './components/BannerComponent'
 import Chips from './components/Chips'
 import Footer from './components/Footer'
 import NavBar from './components/NavBar'
-import ProductList from './components/ProductList'
+import ProductList from './components/ProductList/ProductList'
 
 function App() {
   return (
-    <div className="container m-auto">
+    <div className="container mx-auto">
       <NavBar />
       <BannerComponent />
       <Chips category={{name:'Watch'}}/>

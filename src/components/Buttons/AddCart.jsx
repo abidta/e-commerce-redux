@@ -1,11 +1,13 @@
-import { Button } from "flowbite-react"
+import { Button } from 'flowbite-react'
+import { useDispatch } from 'react-redux'
+import { addToCart } from '../../redux/cart'
 
-function AddCart({change}) {
+function AddCart({ product }) {
+  const dispatch = useDispatch()
   return (
-    <Button onClick={()=>{
-        console.log('hi');
-        change(1)
-    }}  className='bg-black'>Add To Cart</Button>
+    <Button onClick={() => dispatch(addToCart(product))} className="bg-black">
+      Add To Cart
+    </Button>
   )
 }
 
