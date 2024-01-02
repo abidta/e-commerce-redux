@@ -10,7 +10,7 @@ function CartIcon() {
   }, 0)
   return (
     <div
-      className=" order-last cursor-pointer "
+      className=" order-last cursor-pointer hover:bg-blue-300 hover:rounded-full p-1 my-auto"
       onClick={() => dispatch(setCartModal(!cartModal))}
     >
       {cartList.length !== 0 && (
@@ -19,7 +19,7 @@ function CartIcon() {
         </div>
       )}
       <img
-        className="h-7 w-7 "
+        className="h-7 w-7 aspect-square"
         src="/images/blue-shopping-cart-10910.svg"
         alt=""
       />

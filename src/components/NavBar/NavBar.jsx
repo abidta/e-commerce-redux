@@ -9,7 +9,7 @@ function NavBar() {
 
         <Navbar.Toggle className="order-first" />
         <Navbar.Collapse>
-          <Navbar.Link className="font-bold" href="#" active>
+          <Navbar.Link className="font-bold hover:text-black" href="#" active>
             Home
           </Navbar.Link>
           <Navbar.Link href="#watches">Watches</Navbar.Link>
@@ -18,7 +18,7 @@ function NavBar() {
           <Navbar.Link href="#contact">Contact</Navbar.Link>
         </Navbar.Collapse>
       </Navbar>
-      <div className="grid col-span-2 md:justify-end justify-center md:me-4 md:items-center mt-6 md:mt-0">
+      <div className="grid col-span-2 md:justify-end justify-center md:me-4 md:items-center  md:mt-0">
         <CartIcon />
       </div>
     </div>
