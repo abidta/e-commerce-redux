@@ -1,7 +1,7 @@
 function Chips({ chipsData }) {
   return (
     <div
-      className={`sm:p-3 ps-1  inline-flex justify-between items-center w-auto  rounded-md ${chipsData?.gradient} me-2 `}
+      className={`sm:p-3 ps-1 inline-flex justify-between items-center w-auto cursor-pointer rounded-md ${chipsData?.gradient} me-2 `}
     >
       <h1 className="sm:text-2xl font-bold text-white">
         {chipsData?.category.charAt(0).toUpperCase() +
