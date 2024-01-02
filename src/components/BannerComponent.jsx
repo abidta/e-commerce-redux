@@ -1,11 +1,8 @@
-import { Banner, Button } from 'flowbite-react'
-import { useDispatch } from 'react-redux'
-import { addToCart } from '../redux/cart'
+import { Banner } from 'flowbite-react'
 import bannerData from '../api/bannerData.json'
 import CartButtons from './ProductList/CartButtons'
 
 function BannerComponent() {
-  const dispatch = useDispatch()
   return (
     <Banner className="mt-12 bg-red-100 rounded-md">
       <div className=" w-full  border-b border-gray-200  p-4 py-12 dark:border-gray-600 dark:bg-gray-700">

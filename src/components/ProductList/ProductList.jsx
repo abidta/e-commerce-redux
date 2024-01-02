@@ -3,7 +3,7 @@ import CardComponent from './CardComponent'
 
 function ProductList({ category }) {
   return (
-    <div className="mt-10">
+    <div id={category} className="mt-10">
       <p className="text-2xl font-bold mb-3 ms-2 md:ms-0">
         {category.charAt(0).toUpperCase() + category.slice(1)}
       </p>

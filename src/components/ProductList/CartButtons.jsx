@@ -3,7 +3,7 @@ import AddCart from '../Buttons/AddCart'
 import AfterCart from '../Buttons/AfterCart'
 import { useEffect } from 'react'
 
-function CartButtons({ product,classes,name }) {
+function CartButtons({ product, classes, name }) {
   useEffect(() => {
     console.log('effect')
     return () => {
@@ -17,9 +17,13 @@ function CartButtons({ product,classes,name }) {
     <>
       {console.log('new things')}
       {cartCount > 0 ? (
-        <AfterCart productId={product.id} cartCount={cartCount} classes={classes} />
+        <AfterCart
+          productId={product.id}
+          cartCount={cartCount}
+          classes={classes}
+        />
       ) : (
-        <AddCart product={product} classes={classes} name={name}/>
+        <AddCart product={product} classes={classes} name={name} />
       )}
     </>
   )
