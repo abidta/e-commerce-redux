@@ -1,8 +1,36 @@
-# React + Vite
+# E-commerce App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### A simple e-commerce app with minimalist and responsive Ui with react. Redux for global state management.
 
-Currently, two official plugins are available:
+## Features
+- Global state management(Redux toolkit)
+- Responsive design with Tailwind css
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Link to [deployment](https://e-commerce-redux-abidta.vercel.app/)
+
+## Development
+
+### Setup
+
+1. Clone the repo
+
+   ```sh
+   git clone https://github.com/abidta/e-commerce-redux.git
+   ```
+2. Go to the project folder
+
+   ```sh
+   cd e-commerce-redux
+   ```
+3. Install packages with npm, yarn or pnpm
+
+   ```sh
+   npm install
+   ```
+4. Start the server. In a development environment, just do:
+
+   ```sh
+   npm run dev
+   ```
+
+**Happy Coding!!! ❤️**
