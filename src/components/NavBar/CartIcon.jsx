@@ -10,7 +10,7 @@ function CartIcon() {
   }, 0)
   return (
     <div
-      className=" order-last cursor-pointer hover:bg-blue-300 hover:rounded-full p-1 my-auto"
+      className=" order-last cursor-pointer hover:bg-blue-300 hover:rounded-full p-1 md:my-auto my-0 mt-6 "
       onClick={() => dispatch(setCartModal(!cartModal))}
     >
       {cartList.length !== 0 && (
