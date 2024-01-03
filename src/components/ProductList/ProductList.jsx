@@ -8,9 +8,9 @@ function ProductList({ category }) {
         {category.charAt(0).toUpperCase() + category.slice(1)}
       </p>
       <div className="grid md:grid-cols-3 lg:grid-cols-4 sm:grid-cols-2 grid-col-1 ">
-        {products.map((obj, key) => {
+        {products.map((obj) => {
           if (obj.category === category) {
-            return <CardComponent key={key} product={obj} />
+            return <CardComponent key={obj.id} product={obj} />
           }
         })}
       </div>

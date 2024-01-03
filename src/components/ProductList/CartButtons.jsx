@@ -1,7 +1,7 @@
-import { useSelector } from 'react-redux'
+//import { useSelector } from 'react-redux'
 import AddCart from '../Buttons/AddCart'
 import AfterCart from '../Buttons/AfterCart'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 function CartButtons({ product, classes, name }) {
   useEffect(() => {
@@ -10,20 +10,22 @@ function CartButtons({ product, classes, name }) {
       console.log('return')
     }
   })
-  const { cartList } = useSelector((state) => state.cart)
-  console.log(cartList, 'cart list')
-  let cartCount = cartList?.find((item) => item?.id === product?.id)?.count
+  const [cartCount, setcount] = useState(0)
+  // const { cartList } = useSelector((state) => state.cart)
+  // console.log(cartList, 'cart list')
+  // let cartCount = cartList?.find((item) => item?.id === product?.id)?.count
+  
   return (
     <>
-      {console.log('new things')}
       {cartCount > 0 ? (
         <AfterCart
           productId={product.id}
           cartCount={cartCount}
+          setCount={setcount}
           classes={classes}
         />
       ) : (
-        <AddCart product={product} classes={classes} name={name} />
+        <AddCart setCount={setcount} product={product} classes={classes} name={name} />
       )}
     </>
   )
