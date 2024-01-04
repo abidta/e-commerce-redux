@@ -1,7 +1,8 @@
 # E-commerce App
 
 ### A simple e-commerce app with minimalist and responsive Ui with react. Redux for global state management.
-
+<br></br>
+<kbd>[![banner](./public/images/image.png)](https://e-commerce-redux-abidta.vercel.app/)<kbd>
 ## Features
 - Global state management(Redux toolkit)
 - Responsive design with Tailwind css
