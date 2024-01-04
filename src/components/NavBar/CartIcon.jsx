@@ -10,12 +10,12 @@ function CartIcon() {
   }, 0)
   return (
     <div
-      className=" order-last cursor-pointer hover:bg-blue-300 hover:rounded-full p-1 md:my-auto my-0 mt-6 "
+      className=" order-last cursor-pointer hover:bg-blue-300 hover:rounded-full p-1 md:my-auto my-auto mt-6 "
       onClick={() => dispatch(setCartModal(!cartModal))}
     >
       {cartList.length !== 0 && (
-        <div className="flex absolute font-bold ms-4  bg-pink-500 rounded-full h-4 w-4  items-center justify-center">
-          {totalCartCount}
+        <div className="flex absolute font-semibold ms-4 h-4 text-xs text-white bg-red-600 rounded-full px-1.5  items-center justify-center">
+          {totalCartCount > 99 ? <>99+</> : totalCartCount}
         </div>
       )}
       <img

@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux'
 import AddCart from '../Buttons/AddCart'
 import AfterCart from '../Buttons/AfterCart'
 import { useEffect } from 'react'
+import { useMemo } from 'react'
 
 function CartButtons({ product, classes, name }) {
   useEffect(() => {
@@ -11,8 +12,9 @@ function CartButtons({ product, classes, name }) {
     }
   })
   const { cartList } = useSelector((state) => state.cart)
-  console.log(cartList, 'cart list')
-  let cartCount = cartList?.find((item) => item?.id === product?.id)?.count
+  let cartCount = useMemo(()=>{
+    console.log(cartList);
+    return cartList?.find((item) => item?.id === product?.id)?.count} ,[cartList,product?.id]) 
   return (
     <>
       {console.log('new things')}
@@ -29,4 +31,4 @@ function CartButtons({ product, classes, name }) {
   )
 }
 
-export default CartButtons
+export default CartButtons  
