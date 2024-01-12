@@ -1,6 +1,6 @@
 import dotenv from 'dotenv'
 import express from 'express'
-import { createHandler } from 'graphql-http'
+import { createHandler } from 'graphql-http/lib/use/express'
 import { schema } from './graphql'
 import cors from 'cors'
 import { connectDb } from './config/db'
