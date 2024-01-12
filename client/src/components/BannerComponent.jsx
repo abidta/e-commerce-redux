@@ -14,7 +14,11 @@ function BannerComponent() {
               <h1 className="font-bold text-2xl md:text-start text-center text-pink-600 mt-4">
                 {`$${bannerData.price}`}
               </h1>
-              <CartButtons product={bannerData} name={'Buy now'} classes={"bg-pink-600 mt-2 mx-auto md:mx-0  "}/>
+              <CartButtons
+                product={bannerData}
+                name={'Buy now'}
+                classes={'bg-pink-600 mt-2 mx-auto md:mx-0  '}
+              />
             </div>
             <div className="order-first md:order-last col-span-7 md:col-span-3  ">
               <img src={bannerData.image_url} alt="banner" />
