@@ -1,4 +1,4 @@
-function Button({ className, child, path, type }) {
+function Button({ className, child, type }) {
   // const navigate = useNavigate()
   return (
     <>

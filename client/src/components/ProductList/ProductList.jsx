@@ -1,7 +1,22 @@
+import { useQuery } from 'urql'
 import products from '../../api/products.json'
 import CardComponent from './CardComponent'
+import { GET_PPRODUCTS } from '../../api/graphql'
+
 
 function ProductList({ category }) {
+  const [result,reexecuteQuery]= useQuery({query:GET_PPRODUCTS})
+  const {data,fetching,error}= result
+  if (error) {
+    return <p>error:{error.message}</p>
+  }
+  if (fetching) {
+    return<p>Loading...</p>
+  }
+  if (data) {
+    console.log(data,'products');
+  }
+  
   return (
     <div id={category} className="mt-10">
       <p className="text-2xl font-bold mb-3 ms-2 md:ms-0">

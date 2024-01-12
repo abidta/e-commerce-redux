@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 const { Schema } = mongoose
 export type ProductType = {
   name: string
-  details: string
+  description: string
   category: 'watches' | 'bags' | 'shoes'
   price: number
   image: string
@@ -16,7 +16,7 @@ const productSchema = new Schema<ProductType>({
     type: String,
     required: true,
   },
-  details: {
+  description: {
     type: String,
     required: true,
   },

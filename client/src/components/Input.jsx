@@ -1,7 +1,7 @@
 function Input({ type, label, required, name }) {
   return (
     <div>
-      <label className="text-text-primary-color ">{label}</label>
+      <label className="text-blue-950 ">{label}</label>
       <br />
       <input
         name={name}

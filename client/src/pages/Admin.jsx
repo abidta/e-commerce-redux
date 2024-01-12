@@ -1,14 +1,28 @@
+import { useMutation } from 'urql'
 import Button from '../components/Buttons/Button'
 import Form from '../components/FormComponent'
 import Input from '../components/Input'
+import { ADD_PRODUCT } from '../api/graphql'
+
 function Admin() {
+  const [result, uploadProduct] = useMutation(ADD_PRODUCT)
+  const {error,fetching}=result
   let responseBody = {}
   const handleSubmit = (e) => {
     e.preventDefault()
     const formdata = new FormData(e.currentTarget)
     formdata.forEach((value, proprety) => (responseBody[proprety] = value))
-    console.log(JSON.stringify(responseBody))
+    uploadProduct({
+      name: responseBody.name,
+      description: responseBody.description,
+      price: responseBody.price,
+      category: responseBody.category,
+      
+    })
   }
+if (error) {
+  return<>{error.message}</>
+}
   return (
     <>
       <div className="h-[100vh] flex md:flex-row flex-col justify-center items-center">
@@ -25,8 +39,17 @@ function Admin() {
               <div>
                 <Input label="Product Name" type="text" name="name" required />
                 <Input label="Description" type="text" name="description" required />
-                <Input label="Category" type="select" name="category" required />
                 <Input label="Price" type="text" name="price" required />
+                <label className="text-blue-950"> Category</label>
+                <select
+                  className="p-1 pl-2 mb-2 border border-solid border-slate-200 rounded-md shadow-sm w-full"
+                  name="category"
+                  id=""
+                >
+                  <option value="bags">Bags</option>
+                  <option value="watches">Watches</option>
+                  <option value="shoes">Shoes</option>
+                </select>
                 <Input label="Image" type="file" name="image" required />
               </div>
               <Button className="mt-6 w-full" type="submit" child={'Create Product'} />

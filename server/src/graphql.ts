@@ -4,26 +4,28 @@ import {
   GraphQLSchema,
   GraphQLList,
 } from 'graphql'
-import Product ,{type ProductType} from './models/productModel'
+import Product, { type ProductType } from './models/productModel'
+
+//Product
 const ProductDef = new GraphQLObjectType({
   name: 'Product',
-
   fields: {
     _id: { type: GraphQLString },
     name: { type: GraphQLString },
     category: { type: GraphQLString },
     price: { type: GraphQLString },
     image: { type: GraphQLString },
-    details: { type: GraphQLString },
+    description: { type: GraphQLString },
   },
 })
+//Query
 const RootQuery = new GraphQLObjectType({
   name: 'root',
   fields: {
     product: {
       type: ProductDef,
       args: { id: { type: GraphQLString } },
-      resolve: async (parent,args) => await Product.findById(args.id),
+      resolve: async (parent, args) => await Product.findById(args.id),
     },
     products: {
       type: new GraphQLList(ProductDef),
@@ -33,7 +35,9 @@ const RootQuery = new GraphQLObjectType({
     },
   },
 })
-const MUtation = new GraphQLObjectType({
+
+//Mutaation
+const Mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
     addProduct: {
@@ -42,12 +46,13 @@ const MUtation = new GraphQLObjectType({
         name: { type: GraphQLString },
         category: { type: GraphQLString },
         price: { type: GraphQLString },
+        description: { type: GraphQLString },
       },
-      resolve: async (parent, args:ProductType) => {
+      resolve: async (parent, args: ProductType) => {
         const product = await Product.create({
           name: args.name,
           category: args.category,
-          details: 'new product',
+          description: args.description,
           price: args.price,
           image: 'soon',
         })
@@ -58,7 +63,7 @@ const MUtation = new GraphQLObjectType({
 })
 export const schema = new GraphQLSchema({
   query: RootQuery,
-  mutation: MUtation,
+  mutation: Mutation,
 })
 // export const schema = new GraphQLSchema({
 //   query: new GraphQLObjectType({
