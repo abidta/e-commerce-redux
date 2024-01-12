@@ -23,7 +23,7 @@ const RootQuery = new GraphQLObjectType({
     product: {
       type: ProductDef,
       args: { id: { type: GraphQLString } },
-      resolve: async () => await Product.find(),
+      resolve: async (parent,args) => await Product.findById(args.id),
     },
     products: {
       type: new GraphQLList(ProductDef),
