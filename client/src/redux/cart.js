@@ -17,15 +17,15 @@ const cartSlice = createSlice({
     },
     increment: (state, action) => {
       state.cartList.forEach((item) => {
-        console.log(item.id, action.payload)
-        if (item.id === action.payload) {
+        console.log(item._id, action.payload)
+        if (item._id === action.payload) {
           item.count++
         }
       })
     },
     decrement: (state, action) => {
       state.cartList.forEach((item, index, array) => {
-        if (item.id === action.payload) {
+        if (item._id === action.payload) {
           if (item.count === 1) {
             array.splice(index, 1)
             return

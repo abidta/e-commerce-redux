@@ -2,6 +2,7 @@ import Product, { ProductType } from './models/productModel'
 import { createSchema, createYoga } from 'graphql-yoga'
 import fs from 'fs'
 import path from 'path'
+
 //Product
 export const yoga = createYoga({
   schema: createSchema({
@@ -92,12 +93,20 @@ export const yoga = createYoga({
           return true
         },
         deleteProduct: async (_, { _id }) => {
-          const { deletedCount } = await Product.deleteOne({
-            _id,
-          })
-          console.log(deletedCount)
+          try {
+            const product = await Product.findById(_id)
+            await fs.promises.unlink(`/public/images/${product!.image}`)
+            const { deletedCount } = await Product.deleteOne({
+              _id,
+            })
+            console.log(deletedCount)
 
-          return deletedCount
+            return deletedCount
+          } catch (e) {
+            const error = e as Error
+            console.log(error)
+            throw Error(error.message)
+          }
         },
       },
     },

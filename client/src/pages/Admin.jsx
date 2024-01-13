@@ -5,6 +5,7 @@ import Input from '../components/Input'
 import { ADD_PRODUCT } from '../api/graphql'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import AdminLogo from '../components/AdminLogo'
 
 function Admin() {
   const [file, setfile] = useState()
@@ -13,7 +14,6 @@ function Admin() {
 
   const { error, fetching } = result
   useEffect(() => {
-    console.log('fiiii ');
     if (!result.error && result.data) {
       navigate('/success')
     }
@@ -39,26 +39,29 @@ function Admin() {
     console.log(e.target?.files[0])
     setfile(e.target.files[0])
   }
-
-  if (error) {
-    return <>{error.stack}</>
+  const handleManageProduct=()=>{
+    navigate('/manage-products')
   }
+
+  // if (error) {
+  //   throw Error(error.message)
+  // }
   // if (result) {
   //   navigate('/')
   // }
   return (
     <>
       <div className="h-[100vh] flex md:flex-row flex-col justify-center items-center">
-        <div className="mb-5 mt-5 md:mt-0 md:ms-5">
-          <h1 className="text-3xl  border p-1 rounded-md">
-            Admin <span className="bg-blue-700 text-3xl text-white p-1 rounded-md">Panel</span>
-          </h1>
-        </div>
+        <AdminLogo />
         <Form
           onSubmit={handleSubmit}
           child={
             <>
-              <h1 className="text-3xl mb-2 text-blue-950 font-bold">Add Product</h1>
+              <div className="flex justify-between">
+                <h1 className="text-3xl mb-2 text-blue-950 font-bold">Add Product</h1>
+                <Button child={'Manage Products'} onClick={handleManageProduct} type={'button'}/>
+              </div>
+
               <div>
                 <Input label="Product Name" type="text" name="name" required />
                 <Input label="Description" type="text" name="description" required />
@@ -80,6 +83,13 @@ function Admin() {
                 type="submit"
                 child={!fetching ? 'Create Product' : <div>Loading..</div>}
               />
+              {error && (
+                <div>
+                  <p className="text-red-500">
+                    {error.message}, check inputs, &apos;Price&apos; must be a Number
+                  </p>
+                </div>
+              )}
             </>
           }
         />

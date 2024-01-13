@@ -12,18 +12,15 @@ function CartButtons({ product, classes, name }) {
     }
   })
   const { cartList } = useSelector((state) => state.cart)
-  let cartCount = useMemo(()=>{
-    console.log(cartList);
-    return cartList?.find((item) => item?.id === product?.id)?.count} ,[cartList,product?.id]) 
+  let cartCount = useMemo(() => {
+    console.log(cartList)
+    return cartList?.find((item) => item?._id === product?._id)?.count
+  }, [cartList, product?._id])
   return (
     <>
       {console.log('new things')}
       {cartCount > 0 ? (
-        <AfterCart
-          productId={product.id}
-          cartCount={cartCount}
-          classes={classes}
-        />
+        <AfterCart productId={product._id} cartCount={cartCount} classes={classes} />
       ) : (
         <AddCart product={product} classes={classes} name={name} />
       )}
@@ -31,4 +28,4 @@ function CartButtons({ product, classes, name }) {
   )
 }
 
-export default CartButtons  
+export default CartButtons

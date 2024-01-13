@@ -1,6 +1,6 @@
 import { Client, fetchExchange, cacheExchange, gql } from '@urql/core'
 
-export const BASE_URI='https://e-commerce-anid.onrender.com'
+export const BASE_URI = 'https://e-commerce-anid.onrender.com'
 export const client = new Client({
   url: `${BASE_URI}/graphql`,
   exchanges: [cacheExchange, fetchExchange],
@@ -20,6 +20,11 @@ export const GET_PPRODUCTS = gql`
 export const ADD_PRODUCT = gql`
   mutation AddProduct($productInfo: Product!) {
     addProduct(productInfo: $productInfo)
+  }
+`
+export const DELETE_PRODUCT = gql`
+  mutation DeleteProduct($_id: String!) {
+    deleteProduct(_id: $_id)
   }
 `
 //for testing

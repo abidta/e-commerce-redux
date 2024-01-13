@@ -3,6 +3,7 @@ import CardComponent from './CardComponent'
 import { GET_PPRODUCTS } from '../../api/graphql'
 
 function ProductList({ category }) {
+  // eslint-disable-next-line no-unused-vars
   const [result, reexecuteQuery] = useQuery({
     query: GET_PPRODUCTS,
     variables: { filter: { category: category } },
@@ -25,9 +26,9 @@ function ProductList({ category }) {
         {category.charAt(0).toUpperCase() + category.slice(1)}
       </p>
       <div className="grid md:grid-cols-3 lg:grid-cols-4 sm:grid-cols-2 grid-col-1 ">
-        {result.data.getProducts.map((obj, key) => {
+        {result.data.getProducts.map((obj) => {
           if (obj.category === category) {
-            return <CardComponent key={key} product={obj} />
+            return <CardComponent key={obj._id} product={obj} />
           }
         })}
       </div>
