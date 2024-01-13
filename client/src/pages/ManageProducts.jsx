@@ -38,7 +38,7 @@ function ManageProducts() {
     return <div>loading..</div>
   }
   if (error || errorMutation) {
-    return <div>{error.message || errorMutation.message}</div>
+    return <div>{error?.message || errorMutation?.message}</div>
   }
   return (
     <div className="h-[100vh] ">

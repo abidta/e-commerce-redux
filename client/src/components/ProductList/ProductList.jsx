@@ -1,15 +1,30 @@
 import { useQuery } from 'urql'
 import CardComponent from './CardComponent'
 import { GET_PPRODUCTS } from '../../api/graphql'
+import { useState } from 'react'
+import { useEffect } from 'react'
 
 function ProductList({ category }) {
-  // eslint-disable-next-line no-unused-vars
+  const [page, setPage] = useState(1)
+
   const [result, reexecuteQuery] = useQuery({
     query: GET_PPRODUCTS,
     variables: { filter: { category: category } },
   })
-  console.log(category, 'cattt')
   const { data, fetching, error } = result
+  useEffect(() => {
+    reexecuteQuery({ requestPolicy: 'network-only' })
+    return () => {}
+  }, [page])
+
+  const handleNextPage = () => {
+    setPage((prevPage) => prevPage + 1)
+  }
+  const handlePrevPage = () => {
+    if (page > 1) {
+      setPage((prevPage) => prevPage - 1)
+    }
+  }
   if (error) {
     return <p>error:{error.message}</p>
   }

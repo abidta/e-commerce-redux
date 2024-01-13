@@ -95,7 +95,7 @@ export const yoga = createYoga({
         deleteProduct: async (_, { _id }) => {
           try {
             const product = await Product.findById(_id)
-            await fs.promises.unlink(`/public/images/${product!.image}`)
+            await fs.promises.unlink(`/public/${product!.image}`)
             const { deletedCount } = await Product.deleteOne({
               _id,
             })
