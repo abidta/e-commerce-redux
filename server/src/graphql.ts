@@ -25,7 +25,7 @@ export const yoga = createYoga({
       }
       type Query {
         greetings: String!
-        getProducts(filter:Product): [ProductQ!]!
+        getProducts(filter: Product): [ProductQ!]!
         getProduct(_id: String): ProductQ
       }
 
@@ -39,9 +39,9 @@ export const yoga = createYoga({
     resolvers: {
       Query: {
         greetings: () => 'Hello World!',
-        getProducts: async (_,{filter}) => {
-          console.log(filter.category);
-          
+        getProducts: async (_, { filter }) => {
+          console.log(filter.category)
+
           return await Product.find(filter)
         },
         getProduct: async (_, { _id }) => {
@@ -78,10 +78,10 @@ export const yoga = createYoga({
               category: args.category,
               description: args.description,
               price: args.price,
-              image: 'images/'+args.image.name,
+              image: 'images/' + args.image.name,
             })
             await fs.promises.writeFile(
-              path.join(__dirname, '..', 'public/images', args.image.name),
+              path.join(__dirname, 'public/images', args.image.name),
               Buffer.from(fileArrayBuffer)
             )
           } catch (e) {

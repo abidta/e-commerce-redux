@@ -1,18 +1,13 @@
-// import { ApolloClient, InMemoryCache, gql,mergeOptions } from '@apollo/client'
-
-// export const client = new ApolloClient({
-//   uri: 'http://localhost:3000/graphql',
-//   cache: new InMemoryCache(),
-// })
-
 import { Client, fetchExchange, cacheExchange, gql } from '@urql/core'
+
+export const BASE_URI='https://e-commerce-anid.onrender.com'
 export const client = new Client({
-  url: 'http://localhost:3000/graphql',
+  url: `${BASE_URI}/graphql`,
   exchanges: [cacheExchange, fetchExchange],
 })
 export const GET_PPRODUCTS = gql`
-  query GetProducts($filter:Product) {
-    getProducts(filter:$filter) {
+  query GetProducts($filter: Product) {
+    getProducts(filter: $filter) {
       _id
       name
       category
@@ -23,10 +18,11 @@ export const GET_PPRODUCTS = gql`
   }
 `
 export const ADD_PRODUCT = gql`
-  mutation AddProduct($productInfo:Product!){
-    addProduct(productInfo:$productInfo) 
+  mutation AddProduct($productInfo: Product!) {
+    addProduct(productInfo: $productInfo)
   }
 `
+//for testing
 export const SAVE_FILE = gql`
   mutation SaveFile($file: File!) {
     saveFile(file: $file)

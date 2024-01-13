@@ -3,10 +3,7 @@ import Footer from './components/Footer'
 import NavBar from './components/NavBar/NavBar'
 import ProductList from './components/ProductList/ProductList'
 import MakeChips from './components/Chips/MakeChips'
-// import { useQuery, ApolloProvider } from '@apollo/client'
-import { Provider } from 'urql'
 import './App.css'
-import {  client } from './api/graphql'
 
 function App() {
   return (

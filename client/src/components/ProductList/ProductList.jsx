@@ -1,7 +1,6 @@
 import { useQuery } from 'urql'
 import CardComponent from './CardComponent'
 import { GET_PPRODUCTS } from '../../api/graphql'
-import { useEffect } from 'react'
 
 function ProductList({ category }) {
   const [result, reexecuteQuery] = useQuery({

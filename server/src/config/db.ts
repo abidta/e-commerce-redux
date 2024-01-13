@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 export const connectDb = () => {
   mongoose
-    .connect(process.env['MONGO_URI']!)
+    .connect(process.env['MONGO_URI']!,{dbName:"e-commerce"})
     .then((value: typeof mongoose) => {
       console.log(
         `mongoDb connected on ${value.connection.host}:${value.connection.port}`
