@@ -3,7 +3,17 @@ import { createSchema, createYoga } from 'graphql-yoga'
 import fs from 'fs'
 import path from 'path'
 
-//Product
+type ProductQ = {
+  _id: string
+  name: string
+  description: string
+  price: string
+  category: string
+  image: string
+  page: number
+  limit: number
+}
+
 export const yoga = createYoga({
   schema: createSchema({
     typeDefs: /* GraphQL */ `
@@ -14,6 +24,8 @@ export const yoga = createYoga({
         description: String
         price: String
         category: String
+        page: Int
+        limit: Int
         image: File
       }
       type ProductQ {
@@ -41,8 +53,17 @@ export const yoga = createYoga({
       Query: {
         greetings: () => 'Hello World!',
         getProducts: async (_, { filter }) => {
+          const { page, limit } = filter as ProductQ
           console.log(filter.category)
-
+          if (page && limit) {
+            const skip: number = (page - 1) * limit
+            const pageLimit: number = limit
+            return await Product.find({ category: filter.category })
+              .skip(skip)
+              .limit(pageLimit)
+              .lean()
+              .exec()
+          }
           return await Product.find(filter)
         },
         getProduct: async (_, { _id }) => {
@@ -95,7 +116,10 @@ export const yoga = createYoga({
         deleteProduct: async (_, { _id }) => {
           try {
             const product = await Product.findById(_id)
-            await fs.promises.unlink(`/public/${product!.image}`)
+             fs.unlink(`/public/${product!.image}`,(err)=>{
+              console.log(err);
+              
+             })
             const { deletedCount } = await Product.deleteOne({
               _id,
             })

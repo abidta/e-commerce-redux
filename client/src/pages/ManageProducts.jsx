@@ -5,6 +5,7 @@ import { useMutation, useQuery } from 'urql'
 import { DELETE_PRODUCT, GET_PPRODUCTS } from '../api/graphql'
 import CardComponent from '../components/ProductList/CardComponent'
 import { useEffect } from 'react'
+import Loader from '../components/Loader'
 
 function ManageProducts() {
   const [resultMutation, deleteOne] = useMutation(DELETE_PRODUCT)
@@ -35,7 +36,8 @@ function ManageProducts() {
   }
 
   if (fetching || fetchingMutation) {
-    return <div>loading..</div>
+    return<><Loader/></> 
+    
   }
   if (error || errorMutation) {
     return <div>{error?.message || errorMutation?.message}</div>

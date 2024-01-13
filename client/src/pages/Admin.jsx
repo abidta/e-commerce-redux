@@ -81,7 +81,7 @@ function Admin() {
               <Button
                 className="mt-6 w-full"
                 type="submit"
-                child={!fetching ? 'Create Product' : <div>Loading..</div>}
+                child={!fetching ? 'Create Product' : <div >Loading..</div>}
               />
               {error && (
                 <div>
