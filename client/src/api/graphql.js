@@ -11,8 +11,8 @@ export const client = new Client({
   exchanges: [cacheExchange, fetchExchange],
 })
 export const GET_PPRODUCTS = gql`
-  query Products {
-    products {
+  query GetProducts($filter:Product) {
+    getProducts(filter:$filter) {
       _id
       name
       category

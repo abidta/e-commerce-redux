@@ -2,14 +2,24 @@ import { useMutation } from 'urql'
 import Button from '../components/Buttons/Button'
 import Form from '../components/FormComponent'
 import Input from '../components/Input'
-import { ADD_PRODUCT, SAVE_FILE } from '../api/graphql'
-import { useState } from 'react'
+import { ADD_PRODUCT } from '../api/graphql'
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function Admin() {
   const [file, setfile] = useState()
   const [result, uploadProduct] = useMutation(ADD_PRODUCT)
-  const { error, fetching } = result
+  const navigate = useNavigate()
 
+  const { error, fetching } = result
+  useEffect(() => {
+    console.log('fiiii ');
+    if (!result.error && result.data) {
+      navigate('/success')
+    }
+    return () => {}
+  }, [fetching, navigate, error, result])
+  console.log(result)
   let responseBody = {}
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -29,9 +39,13 @@ function Admin() {
     console.log(e.target?.files[0])
     setfile(e.target.files[0])
   }
+
   if (error) {
     return <>{error.stack}</>
   }
+  // if (result) {
+  //   navigate('/')
+  // }
   return (
     <>
       <div className="h-[100vh] flex md:flex-row flex-col justify-center items-center">
@@ -61,7 +75,11 @@ function Admin() {
                 </select>
                 <Input onchange={handleFile} label="Image" type="file" name="image" required />
               </div>
-              <Button className="mt-6 w-full" type="submit" child={'Create Product'} />
+              <Button
+                className="mt-6 w-full"
+                type="submit"
+                child={!fetching ? 'Create Product' : <div>Loading..</div>}
+              />
             </>
           }
         />

@@ -8,6 +8,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Admin from './pages/Admin.jsx'
 import { Provider } from 'urql'
 import { client } from './api/graphql.js'
+import Success from './pages/Success.jsx'
 // import { client } from './api/apollo.js'
 
 const router = createBrowserRouter([
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: '/admin',
     element: <Admin />,
+  },
+  {
+    path: '/success',
+    element: <Success />,
   },
 ])
 ReactDOM.createRoot(document.getElementById('root')).render(

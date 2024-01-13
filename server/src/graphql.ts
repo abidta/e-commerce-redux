@@ -1,4 +1,4 @@
-import Product from './models/productModel'
+import Product, { ProductType } from './models/productModel'
 import { createSchema, createYoga } from 'graphql-yoga'
 import fs from 'fs'
 import path from 'path'
@@ -15,20 +15,38 @@ export const yoga = createYoga({
         category: String
         image: File
       }
-
+      type ProductQ {
+        _id: String
+        name: String
+        description: String
+        price: String
+        category: String
+        image: String
+      }
       type Query {
         greetings: String!
+        getProducts(filter:Product): [ProductQ!]!
+        getProduct(_id: String): ProductQ
       }
 
       type Mutation {
         readTextFile(file: File!): String!
         saveFile(file: File!): Boolean!
         addProduct(productInfo: Product!): Boolean
+        deleteProduct(_id: String): Boolean!
       }
     `,
     resolvers: {
       Query: {
         greetings: () => 'Hello World!',
+        getProducts: async (_,{filter}) => {
+          console.log(filter.category);
+          
+          return await Product.find(filter)
+        },
+        getProduct: async (_, { _id }) => {
+          return await Product.findById(_id)
+        },
       },
       Mutation: {
         readTextFile: async (_, { file }: { file: File }) => {
@@ -44,31 +62,42 @@ export const yoga = createYoga({
               Buffer.from(fileArrayBuffer)
             )
           } catch (e) {
-            console.log(e.message)
-            return false
+            const err = e as Error
+            console.log(err?.message)
+            throw Error(err?.message)
           }
           return true
         },
-        addProduct: async (_, { productInfo: args }) => {
+        addProduct: async (_, { productInfo }) => {
+          type Pr = { image: File } & Omit<ProductType, 'image'>
           try {
+            const args: Pr = productInfo
             const fileArrayBuffer = await args.image.arrayBuffer()
-
             await Product.create({
               name: args.name,
               category: args.category,
               description: args.description,
               price: args.price,
-              image: args.image.name,
+              image: 'images/'+args.image.name,
             })
             await fs.promises.writeFile(
               path.join(__dirname, '..', 'public/images', args.image.name),
               Buffer.from(fileArrayBuffer)
             )
           } catch (e) {
-            console.log(e.message)
-            return false
+            const err = e as Error
+            console.log(err?.message)
+            throw Error(err?.message)
           }
           return true
+        },
+        deleteProduct: async (_, { _id }) => {
+          const { deletedCount } = await Product.deleteOne({
+            _id,
+          })
+          console.log(deletedCount)
+
+          return deletedCount
         },
       },
     },

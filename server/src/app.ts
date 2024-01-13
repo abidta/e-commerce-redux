@@ -4,6 +4,7 @@ import { yoga } from './graphql'
 import cors from 'cors'
 import { connectDb } from './config/db'
 import path from 'path'
+import morgan from 'morgan'
 
 dotenv.config()
 const app = express()
@@ -13,6 +14,7 @@ connectDb()
 app.use(cors())
 app.use(express.json())
 app.use(express.static(path.join(__dirname, '..', 'public')))
+app.use(morgan('dev'))
 
 app.use(yoga.graphqlEndpoint, yoga)
 

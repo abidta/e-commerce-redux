@@ -8,7 +8,7 @@ function CardComponent({ product }) {
     <div className="text-center me-2 mb-2 md:mb-0 ms-2 md:ms-0">
       <Card className="max-w-sm mx-auto grid justify-items-center ">
         <img
-          src={`${product.image_url}`}
+          src={`http://localhost:3000/${product.image}`}
           className="h-auto aspect-square"
           alt=""
         />
