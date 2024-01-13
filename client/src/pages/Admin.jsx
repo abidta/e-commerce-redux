@@ -2,27 +2,36 @@ import { useMutation } from 'urql'
 import Button from '../components/Buttons/Button'
 import Form from '../components/FormComponent'
 import Input from '../components/Input'
-import { ADD_PRODUCT } from '../api/graphql'
+import { ADD_PRODUCT, SAVE_FILE } from '../api/graphql'
+import { useState } from 'react'
 
 function Admin() {
+  const [file, setfile] = useState()
   const [result, uploadProduct] = useMutation(ADD_PRODUCT)
-  const {error,fetching}=result
+  const { error, fetching } = result
+
   let responseBody = {}
   const handleSubmit = (e) => {
     e.preventDefault()
     const formdata = new FormData(e.currentTarget)
     formdata.forEach((value, proprety) => (responseBody[proprety] = value))
     uploadProduct({
-      name: responseBody.name,
-      description: responseBody.description,
-      price: responseBody.price,
-      category: responseBody.category,
-      
+      productInfo: {
+        name: responseBody.name,
+        description: responseBody.description,
+        price: responseBody.price,
+        category: responseBody.category,
+        image: file,
+      },
     })
   }
-if (error) {
-  return<>{error.message}</>
-}
+  const handleFile = (e) => {
+    console.log(e.target?.files[0])
+    setfile(e.target.files[0])
+  }
+  if (error) {
+    return <>{error.stack}</>
+  }
   return (
     <>
       <div className="h-[100vh] flex md:flex-row flex-col justify-center items-center">
@@ -50,7 +59,7 @@ if (error) {
                   <option value="watches">Watches</option>
                   <option value="shoes">Shoes</option>
                 </select>
-                <Input label="Image" type="file" name="image" required />
+                <Input onchange={handleFile} label="Image" type="file" name="image" required />
               </div>
               <Button className="mt-6 w-full" type="submit" child={'Create Product'} />
             </>

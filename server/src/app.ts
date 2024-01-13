@@ -1,9 +1,9 @@
 import dotenv from 'dotenv'
 import express from 'express'
-import { createHandler } from 'graphql-http/lib/use/express'
-import { schema } from './graphql'
+import { yoga } from './graphql'
 import cors from 'cors'
 import { connectDb } from './config/db'
+import path from 'path'
 
 dotenv.config()
 const app = express()
@@ -11,7 +11,16 @@ const PORT = process.env['PORT']
 connectDb()
 
 app.use(cors())
+app.use(express.json())
+app.use(express.static(path.join(__dirname, '..', 'public')))
 
-app.all('/graphql', createHandler({ schema }))
+app.use(yoga.graphqlEndpoint, yoga)
+
+// app.use(
+//   '/graphql',(req,res,next)=>{req.setEncoding('utf8')
+// next()},
+//   graphqlUploadExpress({ maxFiles: 10, maxFileSize: 10000000 }),
+//   createHandler({ schema})
+// )
 
 app.listen(PORT, () => console.log(`server listening in ${PORT}`))

@@ -5,7 +5,7 @@
 //   cache: new InMemoryCache(),
 // })
 
-import { Client, fetchExchange, cacheExchange, gql } from 'urql'
+import { Client, fetchExchange, cacheExchange, gql } from '@urql/core'
 export const client = new Client({
   url: 'http://localhost:3000/graphql',
   exchanges: [cacheExchange, fetchExchange],
@@ -22,8 +22,13 @@ export const GET_PPRODUCTS = gql`
     }
   }
 `
-export const ADD_PRODUCT = gql`mutation AddProduct($name:String!,$description:String!,$category:String!,$price:String!){
-    addProduct(name:$name,description:$description,category:$category,price:$price){
-      _id
-    }
-  }`
+export const ADD_PRODUCT = gql`
+  mutation AddProduct($productInfo:Product!){
+    addProduct(productInfo:$productInfo) 
+  }
+`
+export const SAVE_FILE = gql`
+  mutation SaveFile($file: File!) {
+    saveFile(file: $file)
+  }
+`

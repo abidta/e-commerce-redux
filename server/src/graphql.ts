@@ -1,78 +1,76 @@
-import {
-  GraphQLObjectType,
-  GraphQLString,
-  GraphQLSchema,
-  GraphQLList,
-} from 'graphql'
-import Product, { type ProductType } from './models/productModel'
-
+import Product from './models/productModel'
+import { createSchema, createYoga } from 'graphql-yoga'
+import fs from 'fs'
+import path from 'path'
 //Product
-const ProductDef = new GraphQLObjectType({
-  name: 'Product',
-  fields: {
-    _id: { type: GraphQLString },
-    name: { type: GraphQLString },
-    category: { type: GraphQLString },
-    price: { type: GraphQLString },
-    image: { type: GraphQLString },
-    description: { type: GraphQLString },
-  },
-})
-//Query
-const RootQuery = new GraphQLObjectType({
-  name: 'root',
-  fields: {
-    product: {
-      type: ProductDef,
-      args: { id: { type: GraphQLString } },
-      resolve: async (parent, args) => await Product.findById(args.id),
-    },
-    products: {
-      type: new GraphQLList(ProductDef),
-      resolve: async () => {
-        return await Product.find()
-      },
-    },
-  },
-})
+export const yoga = createYoga({
+  schema: createSchema({
+    typeDefs: /* GraphQL */ `
+      scalar File
 
-//Mutaation
-const Mutation = new GraphQLObjectType({
-  name: 'Mutation',
-  fields: {
-    addProduct: {
-      type: ProductDef,
-      args: {
-        name: { type: GraphQLString },
-        category: { type: GraphQLString },
-        price: { type: GraphQLString },
-        description: { type: GraphQLString },
+      input Product {
+        name: String
+        description: String
+        price: String
+        category: String
+        image: File
+      }
+
+      type Query {
+        greetings: String!
+      }
+
+      type Mutation {
+        readTextFile(file: File!): String!
+        saveFile(file: File!): Boolean!
+        addProduct(productInfo: Product!): Boolean
+      }
+    `,
+    resolvers: {
+      Query: {
+        greetings: () => 'Hello World!',
       },
-      resolve: async (parent, args: ProductType) => {
-        const product = await Product.create({
-          name: args.name,
-          category: args.category,
-          description: args.description,
-          price: args.price,
-          image: 'soon',
-        })
-        return product
+      Mutation: {
+        readTextFile: async (_, { file }: { file: File }) => {
+          const textContent = await file.text()
+          return textContent
+        },
+
+        saveFile: async (_, { file }: { file: File }) => {
+          try {
+            const fileArrayBuffer = await file.arrayBuffer()
+            await fs.promises.writeFile(
+              path.join(__dirname + '/public/images', file.name),
+              Buffer.from(fileArrayBuffer)
+            )
+          } catch (e) {
+            console.log(e.message)
+            return false
+          }
+          return true
+        },
+        addProduct: async (_, { productInfo: args }) => {
+          try {
+            const fileArrayBuffer = await args.image.arrayBuffer()
+
+            await Product.create({
+              name: args.name,
+              category: args.category,
+              description: args.description,
+              price: args.price,
+              image: args.image.name,
+            })
+            await fs.promises.writeFile(
+              path.join(__dirname, '..', 'public/images', args.image.name),
+              Buffer.from(fileArrayBuffer)
+            )
+          } catch (e) {
+            console.log(e.message)
+            return false
+          }
+          return true
+        },
       },
     },
-  },
+  }),
 })
-export const schema = new GraphQLSchema({
-  query: RootQuery,
-  mutation: Mutation,
-})
-// export const schema = new GraphQLSchema({
-//   query: new GraphQLObjectType({
-//     name: 'Query',
-//     fields: {
-//       hello1: {
-//         type: GraphQLString,
-//         resolve: () => 'world',
-//       },
-//     },
-//   }),
-// })

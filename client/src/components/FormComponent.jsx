@@ -2,7 +2,7 @@ import { Form } from 'react-router-dom'
 
 function FormComponent({ child, onSubmit }) {
   return (
-    <Form
+    <Form 
       onSubmit={onSubmit}
       action=""
       method="POST"
