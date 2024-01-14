@@ -2,6 +2,7 @@ import Product, { ProductType } from './models/productModel'
 import { createSchema, createYoga } from 'graphql-yoga'
 import fs from 'fs'
 import path from 'path'
+import { deleteFile, uploadToCdn } from './util/cdnService'
 
 type ProductQ = {
   _id: string
@@ -36,9 +37,9 @@ export const yoga = createYoga({
         limit: Int
         sort: String
       }
-      type PaginatedProduct{
-        products:[ProductQ!]
-        hasNext:Boolean
+      type PaginatedProduct {
+        products: [ProductQ!]
+        hasNext: Boolean
       }
       type ProductQ {
         _id: String
@@ -46,13 +47,24 @@ export const yoga = createYoga({
         description: String
         price: String
         category: String
-        image: String
+        image: Image
       }
-     
+      type Image {
+        fileId: String
+        name: String
+        size: Int
+        filePath: String
+        url: String
+        fileType: String
+        height: Int
+        width: Int
+        thumbnailUrl: String
+      }
+
       type Query {
         test: String!
         getProductsPaginated(filter: ProductFilter): PaginatedProduct!
-        getProducts:[ProductQ]!
+        getProducts: [ProductQ]
         getProduct(_id: String): ProductQ
       }
 
@@ -79,21 +91,21 @@ export const yoga = createYoga({
             let hasNext: boolean = false
             let products = await Product.find({ category: filter.category })
               .skip(skip)
-              .limit(pageLimit+1)
+              .limit(pageLimit + 1)
               .sort({ [sortType]: 'asc' })
               .lean()
               .exec()
-              hasNext= products.length>pageLimit
-              products=hasNext?products.slice(0,pageLimit):products
-              return{products:products,hasNext}
+            hasNext = products.length > pageLimit
+            products = hasNext ? products.slice(0, pageLimit) : products
+            return { products: products, hasNext }
           }
-          const products= await Product.find(filter)
-          return{products}
+          const products = await Product.find(filter)
+          return { products }
         },
         getProduct: async (_, { _id }) => {
           return await Product.findById(_id)
         },
-        getProducts:async()=>await Product.find()
+        getProducts: async () => await Product.find(),
       },
       Mutation: {
         readTextFile: async (_, { file }: { file: File }) => {
@@ -119,14 +131,16 @@ export const yoga = createYoga({
           type Pr = { image: File } & Omit<ProductType, 'image'>
           try {
             const args: Pr = productInfo
+            const imageDetails = await uploadToCdn(args.image)
             const fileArrayBuffer = await args.image.arrayBuffer()
             await Product.create({
               name: args.name,
               category: args.category,
               description: args.description,
               price: args.price,
-              image: 'images/' + args.image.name,
+              image: imageDetails,
             })
+
             await fs.promises.writeFile(
               path.join(__dirname, 'public/images', args.image.name),
               Buffer.from(fileArrayBuffer)
@@ -141,6 +155,8 @@ export const yoga = createYoga({
         deleteProduct: async (_, { _id }) => {
           try {
             const product = await Product.findById(_id)
+            const fileId = product!.image.fileId
+            await deleteFile(fileId)
             fs.unlink(`/public/${product!.image}`, (err) => {
               console.log(err)
             })

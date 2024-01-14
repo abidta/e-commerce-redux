@@ -9,7 +9,7 @@ function CardComponent({ product, isAdmin, onDelete }) {
   return (
     <div className="text-center me-2 mb-2 md:mb-0 ms-2 md:ms-0">
       <Card className="max-w-sm mx-auto grid justify-items-center ">
-        <img src={`${BASE_URI}/${product.image}`} className="h-40 aspect-square object-contain" alt="product img" />
+        <img src={`${product?.image?.url}`} className="h-40 aspect-square object-contain" alt="product img" />
         <div>
           <h5 className="text-sm font-bold tracking-tight text-gray-900 dark:text-white">{product.name}</h5>
           <p className="font-normal text-gray-700 dark:text-gray-400">{stringReducer(product.description)}</p>

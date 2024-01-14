@@ -1,3 +1,5 @@
+import { UploadResponse } from 'imagekit/dist/libs/interfaces'
+import IKResponse from 'imagekit/dist/libs/interfaces/IKResponse'
 import mongoose from 'mongoose'
 const { Schema } = mongoose
 export type ProductType = {
@@ -5,7 +7,7 @@ export type ProductType = {
   description: string
   category: 'watches' | 'bags' | 'shoes'
   price: number
-  image: string
+  image: IKResponse<UploadResponse >
 }
 const productSchema = new Schema<ProductType>({
   name: {
@@ -25,7 +27,7 @@ const productSchema = new Schema<ProductType>({
     required: true,
   },
   image: {
-    type: String,
+    type: Object,
     required: true,
   },
 })
