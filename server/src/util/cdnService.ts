@@ -5,7 +5,6 @@ import {
   type UploadResponse,
 } from 'imagekit/dist/libs/interfaces'
 import IKResponse from 'imagekit/dist/libs/interfaces/IKResponse'
-import { Types } from 'mongoose'
 
 const imageKit = new ImageKit({
   privateKey: process.env.IMAGEKIT_PRIVATE_KEY!,
@@ -22,22 +21,21 @@ export const uploadToCdn = async (
       file: buffer,
       fileName: `${Date.now()}_.jpg`,
     }
-
     const result = await imageKit.upload(options)
     console.log(result)
 
     return result
   } catch (error) {
-    return error
+    console.log(error)
+
+    throw Error('something wrong')
   }
 }
 export const deleteFile = async (fileId: string): Promise<boolean> => {
   try {
-   let isDelete= await imageKit.deleteFile(fileId)
-   console.log(isDelete);
-   
-    return true
+    await imageKit.deleteFile(fileId)
   } catch (err) {
     throw Error('something wrong')
   }
+  return true
 }

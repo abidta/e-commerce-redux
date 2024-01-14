@@ -1,7 +1,6 @@
 import { Card } from 'flowbite-react'
 import CartButtons from './CartButtons'
 import { stringReducer } from '../../utils/utils'
-import { BASE_URI } from '../../api/graphql'
 import Button from '../Buttons/Button'
 
 function CardComponent({ product, isAdmin, onDelete }) {

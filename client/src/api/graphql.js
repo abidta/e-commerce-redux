@@ -1,6 +1,6 @@
 import { Client, fetchExchange, cacheExchange, gql } from '@urql/core'
-// https://e-commerce-anid.onrender.com
-export const BASE_URI = 'http://localhost:3000'
+//http://localhost:3000
+export const BASE_URI = 'https://e-commerce-anid.onrender.com'
 export const client = new Client({
   url: `${BASE_URI}/graphql`,
   exchanges: [cacheExchange, fetchExchange],
