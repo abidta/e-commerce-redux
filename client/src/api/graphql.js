@@ -1,12 +1,12 @@
 import { Client, fetchExchange, cacheExchange, gql } from '@urql/core'
-// http://localhost:3000
-export const BASE_URI = 'https://e-commerce-anid.onrender.com'
+// https://e-commerce-anid.onrender.com
+export const BASE_URI = 'http://localhost:3000'
 export const client = new Client({
   url: `${BASE_URI}/graphql`,
   exchanges: [cacheExchange, fetchExchange],
 })
 export const GET_PPRODUCTS = gql`
-  query GetProducts($filter: Product) {
+  query GetProducts($filter: ProductFilter) {
     getProducts(filter: $filter) {
       _id
       name

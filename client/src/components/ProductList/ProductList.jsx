@@ -6,12 +6,11 @@ import { useEffect } from 'react'
 import { Pagination } from 'flowbite-react'
 import Loader from '../Loader'
 
-function ProductList({ category }) {
+function ProductList({ category, sortType }) {
   const [currentPage, setCurrentPage] = useState(1)
-
   const [result, reexecuteQuery] = useQuery({
     query: GET_PPRODUCTS,
-    variables: { filter: { category: category, page: currentPage, limit: 4 } },
+    variables: { filter: { category: category, sort: sortType, page: currentPage, limit: 4 } },
   })
   const { data, fetching, error } = result
   useEffect(() => {
@@ -24,7 +23,7 @@ function ProductList({ category }) {
     return <p>error:{error.message}</p>
   }
   if (fetching) {
-    return <Loader/>
+    return <Loader />
   }
   if (data) {
     console.log(data, 'products')
@@ -32,7 +31,7 @@ function ProductList({ category }) {
 
   return (
     <>
-      {!!data?.getProducts?.length&&
+      {!!data?.getProducts?.length && (
         <div id={category} className="mt-10">
           <p className="text-2xl font-bold mb-3 ms-2 md:ms-0">
             {category.charAt(0).toUpperCase() + category.slice(1)}
@@ -44,7 +43,7 @@ function ProductList({ category }) {
               }
             })}
           </div>
-          <div className="flex overflow-x-auto sm:justify-center">
+          <div className="flex overflow-x-auto md:mt-5 mt-3 justify-center">
             <Pagination
               currentPage={currentPage}
               totalPages={data.getProducts.length >= 4 ? currentPage + 1 : currentPage}
@@ -53,7 +52,7 @@ function ProductList({ category }) {
             />
           </div>
         </div>
-      }
+      )}
     </>
   )
 }

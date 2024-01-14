@@ -36,8 +36,11 @@ function ManageProducts() {
   }
 
   if (fetching || fetchingMutation) {
-    return<><Loader/></> 
-    
+    return (
+      <>
+        <Loader />
+      </>
+    )
   }
   if (error || errorMutation) {
     return <div>{error?.message || errorMutation?.message}</div>
@@ -46,12 +49,7 @@ function ManageProducts() {
     <div className="h-[100vh] ">
       <div className="flex justify-between w-full mt-5">
         <AdminLogo />
-        <Button
-          child={'Add Product'}
-          onClick={handleClick}
-          type={'button'}
-          className={'h-10 '}
-        />
+        <Button child={'Add Product'} onClick={handleClick} type={'button'} className={'h-10 '} />
       </div>
       <div className="grid md:grid-cols-3 lg:grid-cols-4 sm:grid-cols-2 grid-col-1 ">
         {data &&

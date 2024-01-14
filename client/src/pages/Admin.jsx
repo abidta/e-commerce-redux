@@ -3,9 +3,10 @@ import Button from '../components/Buttons/Button'
 import Form from '../components/FormComponent'
 import Input from '../components/Input'
 import { ADD_PRODUCT } from '../api/graphql'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AdminLogo from '../components/AdminLogo'
+import Toast from '../components/Toast'
 
 function Admin() {
   const [file, setfile] = useState()
@@ -13,12 +14,7 @@ function Admin() {
   const navigate = useNavigate()
 
   const { error, fetching } = result
-  useEffect(() => {
-    if (!result.error && result.data) {
-      navigate('/success')
-    }
-    return () => {}
-  }, [fetching, navigate, error, result])
+
   console.log(result)
   let responseBody = {}
   const handleSubmit = (e) => {
@@ -34,21 +30,16 @@ function Admin() {
         image: file,
       },
     })
+    e.target.reset()
   }
   const handleFile = (e) => {
     console.log(e.target?.files[0])
     setfile(e.target.files[0])
   }
-  const handleManageProduct=()=>{
+  const handleManageProduct = () => {
     navigate('/manage-products')
   }
 
-  // if (error) {
-  //   throw Error(error.message)
-  // }
-  // if (result) {
-  //   navigate('/')
-  // }
   return (
     <>
       <div className="h-[100vh] flex md:flex-row flex-col justify-center items-center">
@@ -59,7 +50,7 @@ function Admin() {
             <>
               <div className="flex justify-between">
                 <h1 className="text-3xl mb-2 text-blue-950 font-bold">Add Product</h1>
-                <Button child={'Manage Products'} onClick={handleManageProduct} type={'button'}/>
+                <Button child={'Manage Products'} onClick={handleManageProduct} type={'button'} />
               </div>
 
               <div>
@@ -81,7 +72,7 @@ function Admin() {
               <Button
                 className="mt-6 w-full"
                 type="submit"
-                child={!fetching ? 'Create Product' : <div >Loading..</div>}
+                child={!fetching ? 'Create Product' : <div>Loading..</div>}
               />
               {error && (
                 <div>
@@ -93,6 +84,7 @@ function Admin() {
             </>
           }
         />
+        {!result.error && result.data && <Toast child={'Item created successfully'} />}
       </div>
     </>
   )

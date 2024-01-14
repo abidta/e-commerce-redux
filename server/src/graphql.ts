@@ -12,6 +12,7 @@ type ProductQ = {
   image: string
   page: number
   limit: number
+  sort: 'createdAt' | 'price'
 }
 
 export const yoga = createYoga({
@@ -24,10 +25,18 @@ export const yoga = createYoga({
         description: String
         price: String
         category: String
-        page: Int
-        limit: Int
         image: File
       }
+      input ProductFilter {
+        name: String
+        description: String
+        price: String
+        category: [String]
+        page: Int
+        limit: Int
+        sort: String
+      }
+
       type ProductQ {
         _id: String
         name: String
@@ -38,14 +47,14 @@ export const yoga = createYoga({
       }
       type Query {
         greetings: String!
-        getProducts(filter: Product): [ProductQ!]!
+        getProducts(filter: ProductFilter): [ProductQ!]!
         getProduct(_id: String): ProductQ
       }
 
       type Mutation {
         readTextFile(file: File!): String!
         saveFile(file: File!): Boolean!
-        addProduct(productInfo: Product!): Boolean
+        addProduct(productInfo: Product): Boolean
         deleteProduct(_id: String): Boolean!
       }
     `,
@@ -53,16 +62,21 @@ export const yoga = createYoga({
       Query: {
         greetings: () => 'Hello World!',
         getProducts: async (_, { filter }) => {
-          const { page, limit } = filter as ProductQ
+          const { page, limit, sort } = filter as ProductQ
           console.log(filter.category)
           if (page && limit) {
             const skip: number = (page - 1) * limit
             const pageLimit: number = limit
+            const sortType: string = sort
             return await Product.find({ category: filter.category })
+              .sort({ [sortType]: 'asc' })
               .skip(skip)
               .limit(pageLimit)
               .lean()
               .exec()
+          }
+          if (filter?.category?.length == 0) {
+            return await Product.find()
           }
           return await Product.find(filter)
         },
@@ -116,10 +130,9 @@ export const yoga = createYoga({
         deleteProduct: async (_, { _id }) => {
           try {
             const product = await Product.findById(_id)
-             fs.unlink(`/public/${product!.image}`,(err)=>{
-              console.log(err);
-              
-             })
+            fs.unlink(`/public/${product!.image}`, (err) => {
+              console.log(err)
+            })
             const { deletedCount } = await Product.deleteOne({
               _id,
             })

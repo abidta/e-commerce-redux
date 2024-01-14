@@ -1,9 +1,9 @@
 import BannerComponent from './components/BannerComponent'
 import Footer from './components/Footer'
 import NavBar from './components/NavBar/NavBar'
-import ProductList from './components/ProductList/ProductList'
 import MakeChips from './components/Chips/MakeChips'
 import './App.css'
+import ProductContainer from './components/ProductList/ProductContainer'
 
 function App() {
   return (
@@ -12,9 +12,7 @@ function App() {
       <NavBar />
       <BannerComponent />
       <MakeChips />
-      <ProductList category={'watches'} />
-      <ProductList category={'shoes'} />
-      <ProductList category={'bags'} />
+      <ProductContainer/>
       <Footer />
     </>
   )
