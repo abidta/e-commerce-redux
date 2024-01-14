@@ -1,13 +1,28 @@
 import { Client, fetchExchange, cacheExchange, gql } from '@urql/core'
-// http://localhost:3000
+// https://e-commerce-anid.onrender.comhttp://localhost:3000
 export const BASE_URI = 'https://e-commerce-anid.onrender.com'
 export const client = new Client({
   url: `${BASE_URI}/graphql`,
   exchanges: [cacheExchange, fetchExchange],
 })
+export const GET_PPRODUCTS_PAGINATED = gql`
+  query GetProductsPaginated($filter: ProductFilter) {
+    getProductsPaginated(filter: $filter) {
+      products {
+        _id
+        name
+        category
+        price
+        description
+        image
+      }
+      hasNext
+    }
+  }
+`
 export const GET_PPRODUCTS = gql`
-  query GetProducts($filter: ProductFilter) {
-    getProducts(filter: $filter) {
+  query GetProducts {
+    getProducts {
       _id
       name
       category

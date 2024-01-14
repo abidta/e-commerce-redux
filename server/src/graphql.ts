@@ -36,7 +36,10 @@ export const yoga = createYoga({
         limit: Int
         sort: String
       }
-
+      type PaginatedProduct{
+        products:[ProductQ!]
+        hasNext:Boolean
+      }
       type ProductQ {
         _id: String
         name: String
@@ -45,9 +48,11 @@ export const yoga = createYoga({
         category: String
         image: String
       }
+     
       type Query {
-        greetings: String!
-        getProducts(filter: ProductFilter): [ProductQ!]!
+        test: String!
+        getProductsPaginated(filter: ProductFilter): PaginatedProduct!
+        getProducts:[ProductQ]!
         getProduct(_id: String): ProductQ
       }
 
@@ -60,29 +65,35 @@ export const yoga = createYoga({
     `,
     resolvers: {
       Query: {
-        greetings: () => 'Hello World!',
-        getProducts: async (_, { filter }) => {
+        test: (_, a) => {
+          console.log(a)
+          return 'Hello World!'
+        },
+        getProductsPaginated: async (_, { filter }) => {
           const { page, limit, sort } = filter as ProductQ
           console.log(filter.category)
           if (page && limit) {
             const skip: number = (page - 1) * limit
             const pageLimit: number = limit
             const sortType: string = sort
-            return await Product.find({ category: filter.category })
-              .sort({ [sortType]: 'asc' })
+            let hasNext: boolean = false
+            let products = await Product.find({ category: filter.category })
               .skip(skip)
-              .limit(pageLimit)
+              .limit(pageLimit+1)
+              .sort({ [sortType]: 'asc' })
               .lean()
               .exec()
+              hasNext= products.length>pageLimit
+              products=hasNext?products.slice(0,pageLimit):products
+              return{products:products,hasNext}
           }
-          if (filter?.category?.length == 0) {
-            return await Product.find()
-          }
-          return await Product.find(filter)
+          const products= await Product.find(filter)
+          return{products}
         },
         getProduct: async (_, { _id }) => {
           return await Product.findById(_id)
         },
+        getProducts:async()=>await Product.find()
       },
       Mutation: {
         readTextFile: async (_, { file }: { file: File }) => {

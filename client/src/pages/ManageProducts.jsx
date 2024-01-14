@@ -9,7 +9,7 @@ import Loader from '../components/Loader'
 
 function ManageProducts() {
   const [resultMutation, deleteOne] = useMutation(DELETE_PRODUCT)
-  const [result, reexecuteQuery] = useQuery({ query: GET_PPRODUCTS, variables: { filter: {} } })
+  const [result, reexecuteQuery] = useQuery({ query: GET_PPRODUCTS })
   const { error: errorMutation, fetching: fetchingMutation, data: dataMutation } = resultMutation
   const { fetching, data, error } = result
   const refresh = () => {
