@@ -32,15 +32,33 @@ Link to [deployment](https://e-commerce-redux-abidta.vercel.app/)
    ```sh
    cd e-commerce-redux
    ```
-3. Install packages with npm, yarn or pnpm
+
+3. First setup backend, Navigate to the `server` directory
+   
+4. Install packages with npm, yarn or pnpm
 
    ```sh
    npm install
    ```
-4. Start the server. In a development environment, just do:
+5. Configure environment variables in the`.env` file.
+6. Start the server. In a development environment, just do:
 
    ```sh
    npm run dev
    ```
+   Your GraphQL API is available at `http://localhost:4000/graphql` 
+<br>
+7. Then setup frontend, Navigate to the `client` directory
 
+8. Install packages with npm, yarn or pnpm
+
+   ```sh
+   npm install
+   ```
+9. Start the server. In a development environment, just do:
+
+   ```sh
+   npm run dev
+   ```
+   
 **Happy Coding!!! ❤️**
