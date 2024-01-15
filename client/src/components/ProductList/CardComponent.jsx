@@ -7,7 +7,7 @@ function CardComponent({ product, isAdmin, onDelete }) {
   console.log(product.description.length, 'length')
   return (
     <div className="text-center me-2 mb-2 md:mb-0 ms-2 md:ms-0">
-      <Card className="max-w-sm mx-auto grid justify-items-center ">
+      <Card className="max-w-sm mx-auto grid justify-items-center h-full">
         <img src={`${product?.image?.url}`} className="h-40 aspect-square object-contain" alt="product img" />
         <div>
           <h5 className="text-sm font-bold tracking-tight text-gray-900 dark:text-white">{product.name}</h5>
