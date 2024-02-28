@@ -48,6 +48,7 @@ Link to [deployment](https://e-commerce-redux-abidta.vercel.app/)
    ```
    Your GraphQL API is available at `http://localhost:4000/graphql` 
 <br>
+
 7. Then setup frontend, Navigate to the `client` directory
 
 8. Install packages with npm, yarn or pnpm
@@ -60,5 +61,7 @@ Link to [deployment](https://e-commerce-redux-abidta.vercel.app/)
    ```sh
    npm run dev
    ```
+10. Admin page at ```/admin ``` endpoint.
+   Admin can add and manage products.
    
 **Happy Coding!!! ❤️**
